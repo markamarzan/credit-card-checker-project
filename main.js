@@ -89,7 +89,6 @@ function findInvalidCards(batchArr) {
   });
 }
 
-const invalidCards = findInvalidCards(batch);
 
 function idInvalidCardCompanies(invalidCardsArr) {
   let invalidCardCompanies = [];
