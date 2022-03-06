@@ -99,6 +99,8 @@ function idInvalidCardCompanies(invalidCardsArr) {
   //This array will contain all the card companies that issued the invalid cards. 
 
   for (let i = 0; i < invalidCardsArr.length; i++) {
+    //This for loop iterates through each nested array and performs the following conditional. It accesses the the first digit of the invalid cards and identifies the card company. It will add the card company to the list of card issueres if it has not been added already. 
+    
     if (invalidCardsArr[i][0] === 3) {
       if (invalidCardCompanies.indexOf('Amex') === -1) {
         invalidCardCompanies.push('Amex');
