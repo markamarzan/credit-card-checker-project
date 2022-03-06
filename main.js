@@ -34,15 +34,19 @@ function validateCred(array) {
     //Condition for when the total length of the array is equal to an odd number
 
     for (let i = testArr.length - 1; i >= 0; i--) {
+     
       //This conditional ensures that for every digit in which its position is equal to an even number will not be iterated through
       if ((i % 2) === 0) { 
         //If iterator is an even number position...
   
-        continue;//...loops to the next digit.
+        continue;
+        //...loops to the next digit.
 
-      } else {
+      } else { 
         //Otherwise, the following code will run...
-        testArr[i] *= 2; //Doubles the value
+
+        testArr[i] *= 2; 
+        //Doubles the value
         if (testArr[i] > 9) { 
           //If double the value is greater than 9...
           testArr[i] -= 9; 
@@ -51,12 +55,12 @@ function validateCred(array) {
         //Otherwise, loop to the next digit.
       }
     }
-
   } else { 
     //If the total length of the array is equal to an even number...
 
     for (let i = testArr.length - 1; i >= 0; i--) {
       //The following condition ensures that for every digit in which its position is an odd number will not be iterated through.
+
       if ((i % 2) !== 0) {
         continue;
       } else {
@@ -68,10 +72,10 @@ function validateCred(array) {
     }
   }
 
+  //We use the .reduce() method to sum up all the digits in the array
   const sum = testArr.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
   }); 
-  //We use the .reduce() method to sum up all the digits in the array
 
   if ((sum % 10) === 0) { 
     //If the remainder of the sum divided by 10 is equal to 0, the credit card is valid.
@@ -82,7 +86,7 @@ function validateCred(array) {
 }
 
 
-//The following code uses the filter method to iterate through the nested arrays to find the invalid cards that are passed through the validateCred() function.
+//The following code uses the .filter() method to iterate through the nested arrays to find the invalid cards that are passed through the validateCred() function.
 function findInvalidCards(batchArr) {
   return batchArr.filter(arr => {
     return validateCred(arr) === 'Invalid';
@@ -92,6 +96,8 @@ function findInvalidCards(batchArr) {
 
 function idInvalidCardCompanies(invalidCardsArr) {
   let invalidCardCompanies = [];
+  //This array will contain all the card companies that issued the invalid cards. 
+
   for (let i = 0; i < invalidCardsArr.length; i++) {
     if (invalidCardsArr[i][0] === 3) {
       if (invalidCardCompanies.indexOf('Amex') === -1) {
@@ -119,7 +125,55 @@ function idInvalidCardCompanies(invalidCardsArr) {
       }
     } else {
       console.log(`Company not found: First digit '${invalidCardsArr[i][0]}'`);
+      //Prints if the the first digit of the invalid credit card does not match any of the acceptable first digits of the card companies.
     }
   }
   return invalidCardCompanies;
 }
+
+const invalidCards = findInvalidCards(batch);
+console.log(invalidCards);
+//Expected output: [
+//   [
+//     4, 5, 3, 2, 7, 7,
+//     8, 7, 7, 1, 0, 9,
+//     1, 7, 9, 5
+//   ],
+//   [
+//     5, 7, 9, 5, 5, 9,
+//     3, 3, 9, 2, 1, 3,
+//     4, 6, 4, 3
+//   ],
+//   [
+//     3, 7, 5, 7, 9, 6,
+//     0, 8, 4, 4, 5, 9,
+//     9, 1, 4
+//   ],
+//   [
+//     6, 0, 1, 1, 1, 2,
+//     7, 9, 6, 1, 7, 7,
+//     7, 9, 3, 5
+//   ],
+//   [
+//     5, 3, 8, 2, 0, 1,
+//     9, 7, 7, 2, 8, 8,
+//     3, 8, 5, 4
+//   ],
+//   [
+//     3, 4, 4, 8, 0, 1,
+//     9, 6, 8, 3, 0, 5,
+//     4, 1, 4
+//   ],
+//   [
+//     6, 0, 1, 1, 3, 7, 7,
+//     0, 2, 0, 9, 6, 2, 6,
+//     5, 6, 2, 0, 3
+//   ],
+//   [
+//     4, 9, 2, 9, 8, 7,
+//     7, 1, 6, 9, 2, 1,
+//     7, 0, 9, 3
+//   ]
+// ]
+console.log(idInvalidCardCompanies(invalidCards));
+//Exoected Output: [ 'Visa', 'MasterCard', 'Amex', 'Discover' ]
